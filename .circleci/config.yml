@@ -10,10 +10,10 @@ jobs:
           name: Welcome Message
           command: 'echo "A Second hello from CircleCI"'
       - run:
-          name: Build webosose
+          name: Build Jenkins
           command: |
             sudo apt-get install -y maven
             mvn clean install -pl war -am -DskipTests
-#      - store_artifacts:
-#          path: ~/project/BUILD/deploy/images
-#          destination: jenkins
+      - store_artifacts:
+          path: ~/project/war/target
+          destination: jenkins_target
