@@ -1,19 +1,36 @@
 version: 2
 jobs:
-  build:
+  "Build Jenkins on JDK8":
     docker:
      #- image: circleci/ruby:2.4.1
      - image: circleci/openjdk:8u162-jdk-node-browsers
     steps:
       - checkout
       - run:
-          name: Welcome Message
-          command: 'echo "A Second hello from CircleCI"'
+          name: Build Jenkins
+          command: |
+            sudo apt-get install -y maven
+            mvn clean install -pl war -am -DskipTests
+      - store_artifacts:
+          path: ~/project/war/target/jenkins.war
+          destination: jenkins-on-jdk8.war
+  "Build Jenkins on JDK9":
+    docker:
+     #- image: circleci/ruby:2.4.1
+     - image: circleci/openjdk:9-jdk-node-browsers
+    steps:
+      - checkout
       - run:
           name: Build Jenkins
           command: |
             sudo apt-get install -y maven
-            mvn clean install -pl war -am
+            mvn clean install -pl war -am -DskipTests
       - store_artifacts:
           path: ~/project/war/target/jenkins.war
-          destination: jenkins.war
+          destination: jenkins-on-jdk9.war
+workflows:
+  version: 2
+  build:
+    jobs:
+      - "Build Jenkins on JDK8"
+      - "Build Jenkins on JDK9"
