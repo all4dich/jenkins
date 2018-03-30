@@ -1,0 +1,19 @@
+version: 2
+jobs:
+  build:
+    docker:
+     #- image: circleci/ruby:2.4.1
+     - image: circleci/openjdk:8u162-jdk-node-browsers
+    steps:
+      - checkout
+      - run:
+          name: Welcome Message
+          command: 'echo "A Second hello from CircleCI"'
+      - run:
+          name: Build webosose
+          command: |
+            sudo apt-get install -y maven
+            mvn clean install -pl war -am -DskipTests
+#      - store_artifacts:
+#          path: ~/project/BUILD/deploy/images
+#          destination: Firmware
