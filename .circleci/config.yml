@@ -14,10 +14,10 @@ jobs:
       - store_artifacts:
           path: ~/project/war/target/jenkins.war
           destination: jenkins-on-jdk8.war
-  "Build Jenkins on JDK9":
+  "Build Jenkins on JDK":
     docker:
      #- image: circleci/ruby:2.4.1
-     - image: circleci/openjdk:9-jdk-node-browsers
+     - image: circleci/openjdk:jdk-node-browsers
     steps:
       - checkout
       - run:
@@ -27,10 +27,10 @@ jobs:
             mvn clean install -pl war -am -DskipTests
       - store_artifacts:
           path: ~/project/war/target/jenkins.war
-          destination: jenkins-on-jdk9.war
+          destination: jenkins-on-jdk.war
 workflows:
   version: 2
   build:
     jobs:
       - "Build Jenkins on JDK8"
-      - "Build Jenkins on JDK9"
+      - "Build Jenkins on JDK"
