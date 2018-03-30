@@ -13,7 +13,7 @@ jobs:
           name: Build Jenkins
           command: |
             sudo apt-get install -y maven
-            mvn clean install -pl war -am -DskipTests
+            mvn clean install -pl war -am
       - store_artifacts:
           path: ~/project/war/target/jenkins.war
           destination: jenkins.war
