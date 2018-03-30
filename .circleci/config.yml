@@ -16,4 +16,4 @@ jobs:
             mvn clean install -pl war -am -DskipTests
 #      - store_artifacts:
 #          path: ~/project/BUILD/deploy/images
-#          destination: Firmware
+#          destination: jenkins
